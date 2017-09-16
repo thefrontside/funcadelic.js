@@ -1,4 +1,4 @@
-import { map, append } from '../src/fn';
+import { map, append, foldr } from '../src/fn';
 import chai  from 'chai';
 import mocha from 'mocha';
 
@@ -20,5 +20,11 @@ describe('Semigroup', function() {
   });
   it('appends arrays', function() {
     expect(append([1,2,3], [4,4,4])).to.deep.equal([1,2,3,4,4,4]);
+  });
+});
+
+describe('Foldable', function() {
+  it('folds arrays', function() {
+    expect(foldr((sum, i) => sum + i, 0, [1,2,3,4])).to.equal(10);
   });
 });

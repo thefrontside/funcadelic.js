@@ -11,7 +11,7 @@ export function type(Class) {
   function getTypeclassInstanceForValue(value) {
     let i = value[symbol];
     if (!i) {
-      throw new Error(`No instance found on ${value} of typeclass ${typeclass}`);
+      throw new Error(`No instance found on ${value} of typeclass ${name}`);
     }
     return i;
   };
@@ -19,6 +19,7 @@ export function type(Class) {
   getTypeclassInstanceForValue.instance = function(constructor, impl) {
     constructor.prototype[symbol] = impl;
   };
+
 
   return getTypeclassInstanceForValue;
 }
