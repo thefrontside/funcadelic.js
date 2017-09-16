@@ -1,8 +1,8 @@
-import { type, instance } from './typeclasses';
+import { type } from './typeclasses';
 
 export const Functor = type(class Functor {});
 
 export function map(fn, f) {
-  let { map } = instance(Functor, f);
+  let { map } = Functor(f);
   return map(fn, f);
 }
