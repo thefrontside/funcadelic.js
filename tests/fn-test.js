@@ -1,4 +1,4 @@
-import { map, append, foldr } from '../src/fn';
+import { map, append, foldr, foldl } from '../src/fn';
 import chai  from 'chai';
 import mocha from 'mocha';
 
@@ -26,5 +26,16 @@ describe('Semigroup', function() {
 describe('Foldable', function() {
   it('folds arrays', function() {
     expect(foldr((sum, i) => sum + i, 0, [1,2,3,4])).to.equal(10);
+    expect(foldl((sum, i) => sum + i, 0, [1,2,3,4])).to.equal(10);
+  });
+  it('folds objects', function() {
+    expect(foldl((reverse, [key, value]) => append(reverse, {[value]: key}), {}, {
+      one: 'won',
+      two: 'two'
+    })).to.deep.equal({won: 'one', two: 'two'});
+    expect(foldr((reverse, [key, value]) => append(reverse, {[value]: key}), {}, {
+      one: 'won',
+      two: 'two'
+    })).to.deep.equal({won: 'one', two: 'two'});
   });
 });

@@ -6,5 +6,6 @@ export { Semigroup, append } from './semigroup';
 import './semigroup/object';
 import './semigroup/array';
 
-export { Foldable, foldr } from './foldable'
+export { Foldable, foldr, foldl } from './foldable'
 import './foldable/array';
+import './foldable/object';

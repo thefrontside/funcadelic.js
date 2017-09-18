@@ -1,7 +1,11 @@
 import { Functor } from '../functor';
+import { append } from '../semigroup';
+import { foldr } from '../foldable';
+
+const { assign, keys } = Object;
 
 Functor.instance(Object, {
   map(fn, object) {
-    return Object.keys(object).reduce((obj, key) => Object.assign(obj, {[key]: fn(object[key])}), {});
+    return foldr((output, [key, value]) => append(output, {[key]: fn(value)}), {}, object);
   }
 });
