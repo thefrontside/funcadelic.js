@@ -29,11 +29,11 @@ describe('Foldable', function() {
     expect(foldl((sum, i) => sum + i, 0, [1,2,3,4])).to.equal(10);
   });
   it('folds objects', function() {
-    expect(foldl((reverse, [key, value]) => append(reverse, {[value]: key}), {}, {
+    expect(foldl((reverse, entry) => append(reverse, {[entry.value]: entry.key}), {}, {
       one: 'won',
       two: 'two'
     })).to.deep.equal({won: 'one', two: 'two'});
-    expect(foldr((reverse, [key, value]) => append(reverse, {[value]: key}), {}, {
+    expect(foldr((reverse, { key, value }) => append(reverse, {[value]: key}), {}, {
       one: 'won',
       two: 'two'
     })).to.deep.equal({won: 'one', two: 'two'});
