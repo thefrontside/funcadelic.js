@@ -1,4 +1,4 @@
-import { map, append, foldr, foldl } from '../src/fn';
+import { map, append, foldr, foldl, filter } from '../src/fn';
 import chai  from 'chai';
 import mocha from 'mocha';
 
@@ -37,5 +37,15 @@ describe('Foldable', function() {
       one: 'won',
       two: 'two'
     })).to.deep.equal({won: 'one', two: 'two'});
+  });
+});
+
+describe('Filterable', function() {
+  it('filters arrays', function() {
+    expect(filter(x => x > 5, [10,3,10, 5])).to.deep.equal([10,10]);
+  });
+  it('filters objects', function() {
+    expect(filter(({key}) => key !== 'nope', {yes: 1, yep: 2, nope: 3, yup: 4}))
+      .to.deep.equal({yes: 1, yep: 2, yup: 4});
   });
 });
