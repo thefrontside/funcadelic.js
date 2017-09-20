@@ -2,7 +2,7 @@
   "name": "fn",
   "version": "1.0.0",
   "description": "Functional Fundamentals",
-  "main": "index.js",
+  "main": "src/fn.js",
   "repository": "https://github.com/cowboyd/fn.js.git",
   "author": "Charles Lowell <cowboyd@frontside.io>",
   "license": "MIT",
