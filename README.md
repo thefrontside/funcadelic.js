@@ -1,4 +1,4 @@
-# fn.js
+# funcadelic.js
 
 The Fundamentals of Functional Programming are Fun!
 
