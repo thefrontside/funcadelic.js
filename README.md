@@ -3,7 +3,7 @@
 The Fundamentals of Functional Programming are Fun!
 
 
-`fn` takes the simple idea that a single function can operate on many
+`funcadelic` takes the simple idea that a single function can operate on many
 different data structures and brings it to JavaScript. Sure, there
 are a lot of FP libraries out there, but this one is oriented along
 the idea of not just using functions, but having those functions
@@ -12,7 +12,7 @@ operate on lots of different kinds of data. Oh, and also having fun!
 Quick example.:
 
 ``` javascript
-import { map } from 'fn';
+import { map } from 'funcadelic';
 
 function double(i) { return i * 2; }
 
@@ -34,7 +34,7 @@ Arrays are classic example. Mash two arrays together and what do you
 get? Well another array of course!
 
 ``` javascript
-import { append } from 'fn';
+import { append } from 'funcadelic';
 
 append([1,2], [3,4]) //=> [1,2,3,4]
 
@@ -75,7 +75,7 @@ to change the values in an array without changing the structure of the
 array itself:
 
 ``` javascript
-import { map } from 'fn';
+import { map } from 'funcadelic';
 
 map(i => i * 2, [1,2]); //=> [2,4]
 ```
@@ -110,7 +110,7 @@ each piece of data inside of a  structure, and incorporate it into the
 final value.
 
 ``` javascript
-import { foldr } from 'fn';
+import { foldr } from 'funcadelic';
 
 map((sum, i) => sum + i, 0, [1,2,3,4]) //=> 10
 ```
