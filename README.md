@@ -91,6 +91,29 @@ map(i => i * 2, {one: 1, two: 2}); //=> {one: 2, two: 4}
 In that example, the values change, but both the input and the output
 have the same keys (one, two)
 
+## Foldable
+
+Functors are all about changing the values contained within a
+structure while at the same time preserving the shape of the structure
+itself. When we map an array of 10 items, you get an array of 10
+items.
+
+Foldable structures are ones where you can consider all of the values it
+contains and use them to compute a single value. You may have heard of
+this before if you're familiar with OO design patterns as "visiting".
+You have a visitor that is passed each value in the collection, and
+then updates an accumulated value it maintains. Once the visitor has
+visited every value, the final accumulated value is your result.
+
+Foldable is the same way, Starting with an initial value, you "visit"
+each piece of data inside of a  structure, and incorporate it into the
+final value.
+
+``` javascript
+import { foldr } from 'fn';
+
+map((sum, i) => sum + i, 0, [1,2,3,4]) //=> 10
+```
 
 ## Deveolpment
 
