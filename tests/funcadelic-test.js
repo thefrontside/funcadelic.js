@@ -1,4 +1,4 @@
-import { map, append, foldr, foldl, filter } from '../src/fn';
+import { map, append, foldr, foldl, filter } from '../src/funcadelic';
 import chai  from 'chai';
 import mocha from 'mocha';
 

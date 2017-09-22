@@ -2,4 +2,4 @@
 require('mocha');
 require('chai');
 require = require("@std/esm")(module, { esm: 'js' });
-require('./fn-test');
+require('./funcadelic-test');
