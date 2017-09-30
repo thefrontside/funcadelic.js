@@ -112,7 +112,7 @@ final value.
 ``` javascript
 import { foldr } from 'funcadelic';
 
-map((sum, i) => sum + i, 0, [1,2,3,4]) //=> 10
+foldr((sum, i) => sum + i, 0, [1,2,3,4]) //=> 10
 ```
 
 ## Deveolpment
