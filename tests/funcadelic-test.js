@@ -52,3 +52,12 @@ describe('Filterable', function() {
       .to.deep.equal({yes: 1, yep: 2, yup: 4});
   });
 });
+
+import { Functor } from '../src/funcadelic';
+
+describe('A Typeclass', function () {
+  it('has an associated symbol', function() {
+    expect(Functor.symbol).not.to.be.undefined;
+    expect(Object.getOwnPropertySymbols(Object.prototype)).to.include(Functor.symbol);
+  });
+})

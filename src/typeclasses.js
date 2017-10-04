@@ -20,6 +20,8 @@ export function type(Class) {
     constructor.prototype[symbol] = impl;
   };
 
+  getTypeclassInstanceForValue.symbol = symbol;
+
 
   return getTypeclassInstanceForValue;
 }
