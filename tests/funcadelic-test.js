@@ -12,6 +12,9 @@ describe('Functor', function() {
   it('maps arrays', function() {
     expect(map(i => i * 2, [1, 2, 3])).to.deep.equal([2,4,6]);
   });
+  it('passes the key to the mapping function for objects', function() {
+    expect(map((_, name) => `hello ${name}`, {one: 1, two: 2})).to.deep.equal({one: 'hello one', two: 'hello two'});
+  });
 });
 
 describe('Semigroup', function() {

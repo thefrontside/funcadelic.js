@@ -11,7 +11,7 @@ Functor.instance(Object, {
         [entry.key]: {
           enumerable: true,
           get() {
-            return fn(entry.value);
+            return fn(entry.value, entry.key);
           }
         }
       });
