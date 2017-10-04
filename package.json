@@ -1,6 +1,6 @@
 {
   "name": "funcadelic",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Functional Fundamentals are Fun!",
   "main": "cjs.js",
   "module": "src/funcadelic.js",
