@@ -48,7 +48,7 @@ append({name: 'Charles'}, {occupation: 'Developer'}) //=> {name: 'Charles', occu
 ```
 
 Notice how we have a single function operating on _multiple_ data
-types? That's what `fn` is all about.
+types? That's what `funcadelic` is all about.
 
 ## Functor
 
