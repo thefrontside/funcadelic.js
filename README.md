@@ -1,7 +1,8 @@
 # funcadelic.js
 
-The Fundamentals of Functional Programming are Fun!
+[![Build Status](https://travis-ci.org/cowboyd/funcadelic.js.svg?branch=master)](https://travis-ci.org/cowboyd/funcadelic.js)
 
+The Fundamentals of Functional Programming are Fun!
 
 `funcadelic` takes the simple idea that a single function can operate on many
 different data structures (typeclass oriented programming) and brings
