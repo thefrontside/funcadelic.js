@@ -1,5 +1,6 @@
 # funcadelic.js
 
+[![npm version](https://badge.fury.io/js/funcadelic.svg)](https://badge.fury.io/js/funcadelic)
 [![Build Status](https://travis-ci.org/cowboyd/funcadelic.js.svg?branch=master)](https://travis-ci.org/cowboyd/funcadelic.js)
 
 The Fundamentals of Functional Programming are Fun!
