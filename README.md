@@ -99,7 +99,7 @@ append({name: 'Charles'}, {occupation: 'Developer'}) //=> {name: 'Charles', occu
 When you smush two members of a semigroup together, you always get the
 same type back. In that example above: `Object + Object => Object`
 
-### Monoids
+### Monoid
 
 Monoids take the concept of [`Semigroup`](#semigroup) and extend it just _teeeeeny
 weeeny_ bit further so that you can use the `append` operation to fold
