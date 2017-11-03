@@ -140,7 +140,20 @@ reduce(Object, [one, two, three])
 //=> {name: 'Charles', occupation: 'Developer', height: {unit: 'cm', amount: 200}}
 ```
 
-You can also do this with arrays.
+Of course, you may have recognized this as something akin to using
+[`Object.assign`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign),
+with an empty object:
+
+``` javascript
+Object.assign({}, one, two, three);
+```
+
+The only difference is that it's not treating it as a unique,
+snowflake of an interface, but instead acknowledging it for what it is:
+_the same fundamental operation as array concatenation and string
+concatenation_ (to name just a few)
+
+Oh, and surprise, suprise! Arrays are Monoids as well....
 
 ``` javascript
 reduce(Array, [[1,2], [3,4]]) //=> [1,2,3,4]
