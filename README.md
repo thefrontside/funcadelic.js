@@ -56,6 +56,8 @@ These typeclasses are currently contained within funcadelic.
 
 * [`Semigroup`](#semigroup)
   + [`append(a, b)`](#appenda-b)
+* [`Monoid`](#monoid)
+  + [`reduce(Monoid, list)`](#reducemonoid-list)
 * [`Functor`](#functor)
   + [`map(fn, functor)`](#mapfn-functor)
 * [`Foldable`](#foldable)
@@ -97,6 +99,71 @@ append({name: 'Charles'}, {occupation: 'Developer'}) //=> {name: 'Charles', occu
 When you smush two members of a semigroup together, you always get the
 same type back. In that example above: `Object + Object => Object`
 
+### Monoids
+
+Monoids take the concept of `Semigroup` and extend it just _teeeeeny
+weeeny_ bit further so that you can use the `append` operation to fold
+any list of monoids really easily into a single value.
+
+#### reduce(Monoid, list)
+
+> Fold a list of monoids of type `Monoid`.
+
+For example, a thing you see often is merging a list of objects together to produce
+a single object with all of the keys and values.
+
+``` javascript
+let name = {name: 'Charles'}
+let occupation = {occupation: 'Developer'}
+let height = {height: {unit: 'cm', amount: 200}}
+```
+
+In order to produce this single merged value you might use
+`Array.prototype.reduce`
+
+``` javascript
+[name, occupation, height].reduce((accumulator, object) => append(accumulator, object), {})
+```
+
+Here we start with an initial value of our accumulator (an empty
+object) and successively `append` each object to it to produce the
+final object.
+
+But if you know for certain what your start state is (`{}`), and how to
+combine any two objects (`append`), then you don't actually need to bother
+with writing your reduce, you can just use a monoidal reduction where
+those operations are implicit:
+
+``` javascript
+reduce(Object, [one, two, three])
+//=> {name: 'Charles', occupation: 'Developer', height: {unit: 'cm', amount: 200}}
+```
+
+You can also do this with arrays.
+
+``` javascript
+reduce(Array, [[1,2], [3,4]]) //=> [1,2,3,4]
+```
+
+Some types, like numbers have many ways that they could be
+reduced. You could add them, or multiply them. For these cases,
+funcadelic provides you a helper `Monoid.create`
+
+``` javascript
+const Sum = Monoid.create(class {
+  empty() { return 0; }
+  append(a, b) { return a + b; }
+})
+
+Sum.reduce([1,2,3,4]) //=> 10
+
+const Multiplication = Monoid.create(class {
+  empty() { return 1; }
+  append(a, b) { return a * b; }
+})
+
+Multiplication.reduce([1,2,3,4]) //=> 24
+```
 
 ### Functor
 
