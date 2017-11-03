@@ -79,8 +79,8 @@ the `append` function.
 > semigroup.
 
 Arrays are classic example of `Semigroup`. What do you get when you
-mash two arrays together and what do you get? Well another array of
-course! `Array + Array => Array`
+mash two arrays together? Well another array of course! `Array + Array
+=> Array`
 
 ``` javascript
 import { append } from 'funcadelic';
@@ -101,13 +101,14 @@ same type back. In that example above: `Object + Object => Object`
 
 ### Monoids
 
-Monoids take the concept of `Semigroup` and extend it just _teeeeeny
+Monoids take the concept of [`Semigroup`](#semigroup) and extend it just _teeeeeny
 weeeny_ bit further so that you can use the `append` operation to fold
 any list of monoids really easily into a single value.
 
 #### reduce(Monoid, list)
 
-> Fold a list of monoids of type `Monoid`.
+> Fold a list of monoids into a single value by smushing them
+> together, starting with an empty value.
 
 For example, a thing you see often is merging a list of objects together to produce
 a single object with all of the keys and values.
@@ -146,7 +147,7 @@ reduce(Array, [[1,2], [3,4]]) //=> [1,2,3,4]
 ```
 
 Some types, like numbers have many ways that they could be
-reduced. You could add them, or multiply them. For these cases,
+reduced. You could add them or multiply them just to name two. For these cases,
 funcadelic provides you a helper `Monoid.create`
 
 ``` javascript
