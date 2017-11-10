@@ -5,7 +5,7 @@ const { keys, assign, getOwnPropertyDescriptor } = Object;
 Semigroup.instance(Object, {
   append(o1, o2) {
     let properties = assign({}, propertiesOf(o1), propertiesOf(o2));
-    return Object.create(Object.prototype, properties);
+    return Object.create(Object.getPrototypeOf(o1), properties);
   }
 });
 

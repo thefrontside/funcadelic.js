@@ -24,6 +24,15 @@ describe('Semigroup', function() {
   it('appends arrays', function() {
     expect(append([1,2,3], [4,4,4])).to.deep.equal([1,2,3,4,4,4]);
   });
+  it('maintains prototype', function() {
+    class OneAndTwo {
+      constructor() {
+        this.one = 1;
+        this.two = 2;
+      }
+    }
+    expect(append(new OneAndTwo(), { two: 'two', three: 3 })).to.be.instanceof(OneAndTwo);
+  });
 });
 
 describe('Monoid', function () {
