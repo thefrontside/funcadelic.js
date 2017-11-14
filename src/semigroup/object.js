@@ -1,16 +1,11 @@
 import { Semigroup } from '../semigroup';
+import propertiesOf from 'object.getownpropertydescriptors';
 
-const { keys, assign, getOwnPropertyDescriptor } = Object;
+const { assign, getPrototypeOf } = Object;
 
 Semigroup.instance(Object, {
   append(o1, o2) {
     let properties = assign({}, propertiesOf(o1), propertiesOf(o2));
-    return Object.create(Object.getPrototypeOf(o1), properties);
+    return Object.create(getPrototypeOf(o1), properties);
   }
 });
-
-function propertiesOf(object) {
-  return keys(object).reduce(function(descriptors, key) {
-    return assign(descriptors, {[key]: getOwnPropertyDescriptor(object, key)});
-  }, {});
-}
