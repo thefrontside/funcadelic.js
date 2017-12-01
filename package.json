@@ -1,6 +1,6 @@
 {
   "name": "funcadelic",
-  "version": "0.2.5",
+  "version": "0.2.6",
   "description": "Functional Fundamentals are Fun!",
   "main": "nodule.js",
   "module": "src/funcadelic.js",
