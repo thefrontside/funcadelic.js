@@ -2,7 +2,7 @@
   "name": "funcadelic",
   "version": "0.2.5",
   "description": "Functional Fundamentals are Fun!",
-  "main": "cjs.js",
+  "main": "nodule.js",
   "module": "src/funcadelic.js",
   "repository": "https://github.com/cowboyd/funcadelic.js.git",
   "author": "Charles Lowell <cowboyd@frontside.io>",
@@ -12,7 +12,7 @@
     "test": "mocha tests/index.js"
   },
   "dependencies": {
-    "@std/esm": "^0.10.0",
+    "@std/esm": "^0.14.0",
     "object.getownpropertydescriptors": "2.0.3"
   },
   "devDependencies": {
