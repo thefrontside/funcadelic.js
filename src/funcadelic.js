@@ -9,6 +9,10 @@ import './monoid/array';
 export { Functor, map } from './functor';
 import './functor/object';
 import './functor/array';
+import './functor/promise';
+
+export { Applicative, pure, apply } from './applicative';
+import './applicative/promise';
 
 export { Foldable, foldr, foldl } from './foldable'
 import './foldable/array';

@@ -60,6 +60,8 @@ These typeclasses are currently contained within funcadelic.
   + [`reduce(Monoid, list)`](#reducemonoid-list)
 * [`Functor`](#functor)
   + [`map(fn, functor)`](#mapfn-functor)
+* [`Applicative`](#applicative)
+  + [`apply(Applicative, fn, list)`](#applyapplicative-fn-list)
 * [`Foldable`](#foldable)
   + [`foldl(fn, initial, foldable)`](#foldlfn-initial-foldable)
   + [`foldr(fn, initial, foldable)`](#foldrfn-initial-foldable)
@@ -232,9 +234,73 @@ Again, notice how `map` preserves the structure of the object, even
 though the values change. Both the input and the output are objects of
 two keys "one" and "two"
 
+## Applicative
+
+[Functors](#functor) let you map a function with a single argument across a single
+Functor. But what do you do if you have a function with _multiple_
+arguments? Applicatives to the rescue.
+
+#### apply(Applicative, fn, list)
+
+> Given `list` of functors each of which holds a value, call `fn`
+> using the values held in `list` as the arguments.
+
+Let's say for example that I have a function `greet` that
+takes three arguments:
+
+``` javascript
+function greet(say, to, excited) {
+  return `${say}`, ${to}${excited ? '!!' : '.'};
+}
+
+greet('Hello', 'Charles', false); //=> "Hello, Charles."
+greet('Hello', 'Friend', true); //=> "Hello, Friend!!"
+```
+
+That's great if we are using literal values, but what if we're
+fetching them over the network?
+
+``` javascript
+let say = $.get('/greeting'); //=> Promise([pending])
+let to = $.get('/entity'); //=> Promise([pending])
+let isExcited = $.get('/excitement-level'); //=> Promise([pending])
+```
+
+We could do this manually:
+
+``` javascript
+Promise.all([say, to, isExcited])
+  .then(([sayResult, toResult, isExcitedResult]) => greet(sayResult, toResult, isExcitedResult))
+```
+
+Of course, this obfuscates our original intent to call `greet` with the
+values in the promises. Instead, the actual greeting happens as
+the very last thing in a rightward drift! It's ugly, and I don't
+appreciate it.
+
+What if we could just apply the `greet` function almost like using the
+builtin [`Function.apply`][1]? like:
+
+``` javascript
+greet.apply(null, [say, to, isExcited]);
+```
+
+That would be awesome right? Well with instances of `Applicative` like
+`Promise`, you totally can!
+
+``` javascript
+import { apply } from 'funcadelic';
+
+apply(Promise, greet, [say, to, isExcited]);
+```
+
+This says: take these three promises, use the values that
+they contain as the three arguments to `greet`, and then return a
+promise containing the result. Nifty!
+
 ### Foldable
 
-Functors are all about changing the values contained within a
+[Functors](#functor) are all about changing the values contained within a
 structure while at the same time preserving the shape of the structure
 itself. When we map an array of 10 items, you get an array of 10
 items.
@@ -324,3 +390,5 @@ talk it over about how to improve it. When in doubt, `foldl`.
 $ yarn
 $ yarn test
 ```
+
+[1]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/apply

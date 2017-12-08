@@ -1,5 +1,5 @@
 import { Semigroup, append } from './semigroup';
-import { foldr } from './foldable';
+import { foldl } from './foldable';
 import { map } from './functor';
 import { type } from './typeclasses';
 
@@ -7,7 +7,7 @@ export const Monoid = type(class Monoid extends Semigroup {});
 
 export function reduce(M, values) {
   let empty = Monoid(M.prototype).empty();
-  return foldr((reduction, value) => append(value, reduction), empty, values);
+  return foldl((reduction, value) => append(reduction, value), empty, values);
 }
 
 Monoid.create = function create(Definition) {

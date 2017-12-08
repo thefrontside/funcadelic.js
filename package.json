@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@std/esm": "^0.14.0",
+    "lodash": "^4.17.4",
     "object.getownpropertydescriptors": "2.0.3"
   },
   "devDependencies": {

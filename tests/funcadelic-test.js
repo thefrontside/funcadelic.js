@@ -5,12 +5,22 @@ import mocha from 'mocha';
 const { expect } = chai;
 const { describe, it } = mocha;
 
+function promise(result) {
+  return Promise.resolve(result);
+}
+
+
 describe('Functor', function() {
   it('maps objects', function() {
     expect(map((i) => i * 2, {one: 1, two: 2})).to.deep.equal({one: 2, two: 4});
   });
   it('maps arrays', function() {
     expect(map(i => i * 2, [1, 2, 3])).to.deep.equal([2,4,6]);
+  });
+  it('maps promises', function() {
+    return map(i => i * 2, promise(5)).then((result) => {
+      expect(result).to.equal(10);
+    });
   });
   it('passes the key to the mapping function for objects', function() {
     expect(map((_, name) => `hello ${name}`, {one: 1, two: 2})).to.deep.equal({one: 'hello one', two: 'hello two'});
@@ -80,6 +90,19 @@ describe('Filterable', function() {
       .to.deep.equal({yes: 1, yep: 2, yup: 4});
   });
 });
+
+
+import { apply } from '../src/funcadelic';
+
+describe('Applicative', function() {
+  it('applies to promises', function() {
+    let greeting = (say, to, isExcited) => `${say}, ${to}${isExcited ? '!!' : ''}`;
+
+    return apply(Promise, greeting, [promise('Hello'), promise('World'), promise(true)])
+      .then(result => expect(result).to.equal('Hello, World!!'));
+  });
+});
+
 
 import { Functor } from '../src/funcadelic';
 
