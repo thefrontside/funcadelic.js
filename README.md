@@ -250,7 +250,7 @@ takes three arguments:
 
 ``` javascript
 function greet(say, to, excited) {
-  return `${say}`, ${to}${excited ? '!!' : '.'};
+  return `${say}, ${to}${excited ? '!!' : '.'}`;
 }
 
 greet('Hello', 'Charles', false); //=> "Hello, Charles."
