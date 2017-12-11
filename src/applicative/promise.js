@@ -5,6 +5,6 @@ Applicative.instance(Promise, {
     return Promise.resolve(value);
   },
   apply(left, right) {
-    return left.then((fn) => right.then(fn));
+    return Promise.all([left, right]).then(([fn, value]) => fn(value));
   }
 });
