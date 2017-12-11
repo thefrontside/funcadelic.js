@@ -12,7 +12,7 @@
     "test": "mocha tests/index.js"
   },
   "dependencies": {
-    "@std/esm": "^0.14.0",
+    "@std/esm": "^0.18.0",
     "lodash": "^4.17.4",
     "object.getownpropertydescriptors": "2.0.3"
   },
