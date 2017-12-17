@@ -1,18 +1,20 @@
 import { type } from './typeclasses';
 
-export const Foldable = type(class Foldable {});
+export const Foldable = type(class Foldable {
+  foldr(fn, initial, foldable) {
+    let { foldr } = this(foldable);
+    return foldr(fn, initial, foldable);
+  }
 
-export function foldr(fn, initial, foldable) {
-  let { foldr } = Foldable(foldable);
-  return foldr(fn, initial, foldable);
-}
+  foldl(fn, initial, foldable) {
+    let { foldl } = this(foldable);
+    return foldl(fn, initial, foldable);
+  }
 
-export function foldl(fn, initial, foldable) {
-  let { foldl } = Foldable(foldable);
-  return foldl(fn, initial, foldable);
-}
+  size(foldable) {
+    let { foldr } = this(foldable);
+    return foldr((len) => len + 1, 0, foldable);
+  }
+});
 
-export function length(foldable) {
-  let { foldr } = Foldable(foldable);
-  return foldr((len) => len + 1, 0, foldable);
-}
+export const { foldr, foldl, size } = Foldable.prototype;

@@ -1,8 +1,10 @@
 import { type } from './typeclasses';
 
-export const Semigroup = type(class Semigroup {});
+export const Semigroup = type(class Semigroup {
+  append(left, right) {
+    let { append } = this(left);
+    return append(left, right);
+  }
+});
 
-export function append(left, right) {
-  let { append } = Semigroup(left);
-  return append(left, right);
-}
+export const { append } = Semigroup.prototype;

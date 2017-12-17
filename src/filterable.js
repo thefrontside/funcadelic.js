@@ -1,7 +1,9 @@
 import { type } from './typeclasses';
 
-export const Filterable = type(class Filterable {});
+export const Filterable = type(class Filterable {
+  filter(fn, f) {
+    return this(f).filter(fn, f);
+  }
+});
 
-export function filter(fn, f) {
-  return Filterable(f).filter(fn, f);
-}
+export const { filter } = Filterable.prototype;
