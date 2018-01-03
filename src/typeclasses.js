@@ -1,3 +1,5 @@
+const { assign, keys, getOwnPropertyDescriptors } = Object;
+
 export function type(Class) {
 
   let name = Class.name;
@@ -8,7 +10,7 @@ export function type(Class) {
 
   let symbol = Symbol(name);
 
-  function getTypeclassInstanceForValue(value) {
+  Class.for = function _for(value) {
     let i = value[symbol];
     if (!i) {
       throw new Error(`No instance found on ${value} of typeclass ${name}`);
@@ -16,12 +18,16 @@ export function type(Class) {
     return i;
   };
 
-  getTypeclassInstanceForValue.instance = function(constructor, impl) {
-    constructor.prototype[symbol] = impl;
+  Class.instance = function(constructor, methods) {
+    constructor.prototype[symbol] = methods;
   };
 
-  getTypeclassInstanceForValue.symbol = symbol;
+  Class.symbol = symbol;
 
+  let properties = getOwnPropertyDescriptors(Class.prototype);
+  keys(properties).filter(key => key != 'constructor').forEach(key => {
+    Class.prototype[key] = Class.prototype[key].bind(Class.for);
+  });
 
-  return getTypeclassInstanceForValue;
+  return Class;
 }

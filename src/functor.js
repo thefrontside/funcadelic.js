@@ -1,8 +1,10 @@
 import { type } from './typeclasses';
 
-export const Functor = type(class Functor {});
+export const Functor = type(class Functor {
+  map(fn, f) {
+    let { map } = this(f);
+    return map(fn, f);
+  }
+});
 
-export function map(fn, f) {
-  let { map } = Functor(f);
-  return map(fn, f);
-}
+export const { map } = Functor.prototype;
