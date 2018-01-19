@@ -1,4 +1,3 @@
-import { Monoid } from './monoid';
 import { Functor } from './functor';
 import { foldl } from './foldable';
 import { type } from './typeclasses';
@@ -10,17 +9,14 @@ export const Applicative = type(class Applicative extends Functor {
   }
 
   apply(Type, fn, list) {
-    let applicative = this(Type.prototype);
-    let monoid = Monoid.create(class {
-      empty() {
-        return applicative.pure(curry(fn));
-      }
-      append(left, right) {
-        return applicative.apply(left, right);
-      }
-    });
-    return monoid.reduce(list);
+    let { pure, applyOne } = this(Type.prototype);
+    let initial = pure(curry(fn));
+    return foldl((left, right) => applyOne(left, right), initial, list);
+  }
+
+  applyOne(left, right) {
+    this(left).applyOne(right);
   }
 });
 
-export const { pure, apply } = Applicative.prototype;
+export const { pure, apply, applyOne } = Applicative.prototype;
