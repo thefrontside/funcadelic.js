@@ -1,7 +1,7 @@
 import { Functor } from './functor';
 import { foldl } from './foldable';
 import { type } from './typeclasses';
-import curry from 'lodash/curry';
+import curry from 'lodash.curry';
 
 export const Applicative = type(class Applicative extends Functor {
   pure(Type, value) {
