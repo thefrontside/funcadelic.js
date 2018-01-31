@@ -5,7 +5,7 @@ import curry from 'lodash.curry';
 
 export const Applicative = type(class Applicative extends Functor {
   pure(Type, value) {
-    return this(Type).pure(value);
+    return this(Type.prototype).pure(value);
   }
 
   apply(Type, fn, list) {

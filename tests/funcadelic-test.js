@@ -1,4 +1,4 @@
-import { map, append, foldr, foldl, filter, reduce, Monoid } from '../src/funcadelic';
+import { map, append, foldr, foldl, filter, pure, reduce, Monoid } from '../src/funcadelic';
 import chai  from 'chai';
 import mocha from 'mocha';
 
@@ -100,6 +100,11 @@ describe('Applicative', function() {
 
     return apply(Promise, greeting, [promise('Hello'), promise('World'), promise(true)])
       .then(result => expect(result).to.equal('Hello, World!!'));
+  });
+  it('can invoke pure statically', function() {
+    return pure(Promise, "now I'm in a promise").then(msg => {
+      expect(msg).to.equal("now I'm in a promise");
+    });
   });
 });
 

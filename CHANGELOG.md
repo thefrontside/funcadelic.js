@@ -11,6 +11,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - For commonjs environments, the app is now pre-built using rollup.js
   instead of being lazily transpiled with @std/esm
 - remove package-lock.json
+- Allow `Applicative.pure` to be invoked
+  statically. I.e. `pure(Promise, 5)` had a bug that was not able to
+  find the applicative instance for Promise.
 
 ## [0.3.0] - 2018-01-19
 
