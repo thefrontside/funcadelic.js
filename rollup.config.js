@@ -12,20 +12,14 @@ export default [
       format: 'umd'
     },
     plugins: [
-      resolve(), // so Rollup can find `ms`
-      commonjs() // so Rollup can convert `ms` to an ES module
+      resolve(), 
+      commonjs() 
     ]
   },
 
-  // CommonJS (for Node) and ES module (for bundlers) build.
-  // (We could have three entries in the configuration array
-  // instead of two, but it's quicker to generate multiple
-  // builds from a single configuration where possible, using
-  // an array for the `output` option, where we can specify
-  // `file` and `format` for each target)
   {
     input: 'src/funcadelic.js',
-    external: id => /lodash/.test(id) || /object/.test(id),
+    external: id => /lodash/.test(id) || /object.getownpropertydescriptors/.test(id),
     output: [
 			{ file: pkg.main, format: 'cjs' }, 
 			{ file: pkg.module, format: 'es' }
