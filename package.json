@@ -2,22 +2,34 @@
   "name": "funcadelic",
   "version": "0.3.0",
   "description": "Functional Fundamentals are Fun!",
-  "main": "nodule.js",
-  "module": "src/funcadelic.js",
+  "main": "dist/funcadelic.cjs.js",
+  "module": "dist/funcadelic.esm.js",
+  "browser": "dist/funcadelic.umd.js",
   "repository": "https://github.com/cowboyd/funcadelic.js.git",
   "author": "Charles Lowell <cowboyd@frontside.io>",
   "license": "MIT",
   "private": false,
   "scripts": {
-    "test": "mocha tests/index.js"
+    "build": "rollup -c",
+    "pretest": "npm run build",
+    "test": "mocha tests/index.js",
+    "prepublish": "npm test"
   },
+  "files": [
+    "dist"
+  ],
   "dependencies": {
-    "@std/esm": "^0.18.0",
-    "lodash": "^4.17.4",
+    "babel": "6.23.0",
+    "babel-preset-es2015": "6.24.1",
+    "lodash.curry": "4.1.1",
     "object.getownpropertydescriptors": "2.0.3"
   },
   "devDependencies": {
+    "babel-register": "6.26.0",
     "chai": "^4.1.2",
-    "mocha": "^3.5.3"
+    "mocha": "^3.5.3",
+    "rollup": "0.55.1",
+    "rollup-plugin-commonjs": "8.3.0",
+    "rollup-plugin-node-resolve": "3.0.2"
   }
 }
