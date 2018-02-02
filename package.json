@@ -13,7 +13,7 @@
     "build": "rollup --config",
     "pretest": "npm run build",
     "test": "mocha tests/index.js",
-    "prepublish": "npm test"
+    "prepare": "npm test"
   },
   "files": [
     "dist"
@@ -23,7 +23,7 @@
     "object.getownpropertydescriptors": "2.0.3"
   },
   "devDependencies": {
-    "babel": "6.23.0",
+    "babel-cli": "6.26.0",
     "babel-preset-env": "1.6.1",
     "babel-register": "6.26.0",
     "chai": "^4.1.2",
