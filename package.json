@@ -16,6 +16,8 @@
     "prepare": "npm test"
   },
   "files": [
+    "README.md",
+    "src",
     "dist"
   ],
   "dependencies": {

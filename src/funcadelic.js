@@ -1,3 +1,5 @@
+export { type } from "./typeclasses";
+
 export { Semigroup, append } from './semigroup';
 import './semigroup/object';
 import './semigroup/array';
