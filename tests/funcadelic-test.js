@@ -1,4 +1,4 @@
-import { map, append, foldr, foldl, filter, pure, reduce, Monoid } from '../src/funcadelic';
+import { apply, map, append, foldr, foldl, filter, pure, reduce, Monoid, Functor, type } from '../src/funcadelic';
 import chai  from 'chai';
 import mocha from 'mocha';
 
@@ -9,6 +9,11 @@ function promise(result) {
   return Promise.resolve(result);
 }
 
+describe('typeclasses', function() {
+  it('exports type function', function() {
+    expect(type).to.be.instanceOf(Function);
+  });
+});
 
 describe('Functor', function() {
   it('maps objects', function() {
@@ -91,9 +96,6 @@ describe('Filterable', function() {
   });
 });
 
-
-import { apply } from '../src/funcadelic';
-
 describe('Applicative', function() {
   it('applies to promises', function() {
     let greeting = (say, to, isExcited) => `${say}, ${to}${isExcited ? '!!' : ''}`;
@@ -107,9 +109,6 @@ describe('Applicative', function() {
     });
   });
 });
-
-
-import { Functor } from '../src/funcadelic';
 
 describe('A Typeclass', function () {
   it('has an associated symbol', function() {
