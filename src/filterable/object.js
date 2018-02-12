@@ -2,8 +2,11 @@ import { Filterable } from '../filterable';
 import { foldr } from '../foldable';
 import { append } from '../semigroup';
 
+const { create, getPrototypeOf } = Object;
+
 Filterable.instance(Object, {
   filter(fn, object) {
+    let instance = create(getPrototypeOf(object));
     return foldr((filtered, entry) => {
       if (fn(entry)) {
         return append(filtered, {
@@ -12,6 +15,6 @@ Filterable.instance(Object, {
       } else {
         return filtered;
       }
-    }, {}, object);
+    }, instance, object);
   }
 });

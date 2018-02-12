@@ -89,6 +89,10 @@ describe('Filterable', function() {
     expect(filter(({key}) => key !== 'nope', {yes: 1, yep: 2, nope: 3, yup: 4}))
       .to.deep.equal({yes: 1, yep: 2, yup: 4});
   });
+  it('preserves prototype', function() {
+    class MyClass {}
+    expect(filter(memo => memo, new MyClass())).to.be.instanceOf(MyClass);
+  });
 });
 
 
