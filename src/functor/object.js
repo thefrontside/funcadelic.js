@@ -1,6 +1,7 @@
 import { Functor } from '../functor';
 import { append } from '../semigroup';
 import { foldr } from '../foldable';
+import stable from '../stable';
 
 const { assign, keys, getPrototypeOf } = Object;
 
@@ -10,9 +11,7 @@ Functor.instance(Object, {
       return append(properties, {
         [entry.key]: {
           enumerable: true,
-          get() {
-            return fn(entry.value, entry.key);
-          }
+          get: stable(() => fn(entry.value, entry.key))
         }
       });
     }, {}, object);
