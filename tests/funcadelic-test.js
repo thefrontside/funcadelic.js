@@ -19,6 +19,10 @@ describe('Functor', function() {
   it('maps objects', function() {
     expect(map((i) => i * 2, {one: 1, two: 2})).to.deep.equal({one: 2, two: 4});
   });
+  it('maps objects, and maintains stability over its values.', function() {
+    let objects =  map(i => ({}), {one: 1, two: 2});
+    expect(objects.one).to.equal(objects.one);
+  });
   it('maps arrays', function() {
     expect(map(i => i * 2, [1, 2, 3])).to.deep.equal([2,4,6]);
   });
