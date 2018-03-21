@@ -52,6 +52,20 @@ describe('Semigroup', function() {
     }
     expect(append(new OneAndTwo(), { two: 'two', three: 3 })).to.be.instanceof(OneAndTwo);
   });
+  it('caches getters', () => {
+    let called = 0;
+    let result = append({ two: 2, three: 3 }, {
+      get sum() {
+        called++;
+        return this.two + this.three;
+      }
+    });
+
+    expect(result.sum).to.equal(5);
+
+    result.sum; // if getter is not cached, this will cause the counter to be incremented;
+    expect(called).to.equal(1);
+  });
 });
 
 describe('Monoid', function () {
