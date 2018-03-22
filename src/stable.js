@@ -1,4 +1,4 @@
-const { keys, assign } = Object;
+export const Stable = Symbol('Stable');
 
 export default function stable(fn) {
   switch (fn.length) {
@@ -12,7 +12,7 @@ export default function stable(fn) {
 function thunk(fn) {
   let evaluated = false;
   let result = undefined;
-  return function evaluate() {
+  function evaluate() {
     if (evaluated) {
       return result;
     } else {
@@ -21,15 +21,6 @@ function thunk(fn) {
       return result;
     }
   };
-}
-
-export function cacheGetters(descriptors) {
-  return keys(descriptors).reduce(function(memo, key) {
-    let descriptor = descriptors[key];
-    return assign(memo, {
-      [key]: descriptor.get ? assign(descriptor, {
-        get: stable(descriptor.get)
-      }) : descriptor
-    });
-  }, {});
+  evaluate[Stable] = true;
+  return evaluate;
 }

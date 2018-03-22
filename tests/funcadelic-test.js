@@ -1,4 +1,6 @@
 import { apply, map, append, foldr, foldl, filter, pure, reduce, Monoid, Functor, type } from '../src/funcadelic';
+import stable, { Stable } from '../src/stable';
+
 import chai  from 'chai';
 import mocha from 'mocha';
 
@@ -52,19 +54,24 @@ describe('Semigroup', function() {
     }
     expect(append(new OneAndTwo(), { two: 'two', three: 3 })).to.be.instanceof(OneAndTwo);
   });
-  it('caches getters', () => {
-    let called = 0;
+  it('stabilizes getters on appended object', () => {
     let result = append({ two: 2, three: 3 }, {
       get sum() {
-        called++;
-        return this.two + this.three;
+        return new Number(this.two + this.three);
       }
     });
 
-    expect(result.sum).to.equal(5);
+    expect(result.sum).to.equal(result.sum);
+  });
 
-    result.sum; // if getter is not cached, this will cause the counter to be incremented;
-    expect(called).to.equal(1);
+  it('stabilizes getters on initial object', () => {
+    let result = append({
+      get sum() {
+        return new Number(this.two + this.three);
+      }
+    }, { two: 2, three: 3 });
+
+    expect(result.sum).to.equal(result.sum);
   });
 });
 
@@ -136,5 +143,11 @@ describe('A Typeclass', function () {
   it('has an associated symbol', function() {
     expect(Functor.symbol).not.to.be.undefined;
     expect(Object.getOwnPropertySymbols(Object.prototype)).to.include(Functor.symbol);
+  });
+});
+
+describe('stable function', () => {
+  it('has Stable symbol', () => {
+    expect(stable(() => {})[Stable]).to.be.true;
   });
 });
