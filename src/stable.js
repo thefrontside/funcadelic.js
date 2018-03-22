@@ -10,6 +10,9 @@ export default function stable(fn) {
 }
 
 function thunk(fn) {
+  if (fn[Stable]) {
+    return fn;
+  }
   let evaluated = false;
   let result = undefined;
   function evaluate() {

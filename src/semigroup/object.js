@@ -1,6 +1,6 @@
 import { Semigroup } from '../semigroup';
 import propertiesOf from 'object.getownpropertydescriptors';
-import stable, { Stable } from '../stable';
+import stable from '../stable';
 
 const { assign, getPrototypeOf, keys } = Object;
 
@@ -14,7 +14,7 @@ Semigroup.instance(Object, {
 function cacheGetters(descriptors) {
   return keys(descriptors).reduce(function(memo, key) {
     let descriptor = descriptors[key];
-    if (descriptor.get && descriptor.get[Stable] || !descriptor.get) {
+    if (!descriptor.get) {
       return assign({}, memo, {
         [key]: descriptor
       });

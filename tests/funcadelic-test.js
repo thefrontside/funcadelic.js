@@ -147,7 +147,8 @@ describe('A Typeclass', function () {
 });
 
 describe('stable function', () => {
-  it('has Stable symbol', () => {
-    expect(stable(() => {})[Stable]).to.be.true;
+  let stabilized = stable(() => {});
+  it('returns stabilized function when attempting to wrapped previously stabilized function', () => {
+    expect(stable(stabilized)).to.equal(stabilized);
   });
 });
