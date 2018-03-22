@@ -11,7 +11,7 @@ Semigroup.instance(Object, {
   }
 });
 
-export function cacheGetters(descriptors) {
+function cacheGetters(descriptors) {
   return keys(descriptors).reduce(function(memo, key) {
     let descriptor = descriptors[key];
     if (descriptor.get && descriptor.get[Stable] || !descriptor.get) {
