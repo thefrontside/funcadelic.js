@@ -1,4 +1,6 @@
 import { apply, map, append, foldr, foldl, filter, pure, reduce, Monoid, Functor, type } from '../src/funcadelic';
+import stable from '../src/stable';
+
 import chai  from 'chai';
 import mocha from 'mocha';
 
@@ -51,6 +53,25 @@ describe('Semigroup', function() {
       }
     }
     expect(append(new OneAndTwo(), { two: 'two', three: 3 })).to.be.instanceof(OneAndTwo);
+  });
+  it('stabilizes getters on appended object', () => {
+    let result = append({ two: 2, three: 3 }, {
+      get sum() {
+        return new Number(this.two + this.three);
+      }
+    });
+
+    expect(result.sum).to.equal(result.sum);
+  });
+
+  it('stabilizes getters on initial object', () => {
+    let result = append({
+      get sum() {
+        return new Number(this.two + this.three);
+      }
+    }, { two: 2, three: 3 });
+
+    expect(result.sum).to.equal(result.sum);
   });
 });
 
@@ -122,5 +143,12 @@ describe('A Typeclass', function () {
   it('has an associated symbol', function() {
     expect(Functor.symbol).not.to.be.undefined;
     expect(Object.getOwnPropertySymbols(Object.prototype)).to.include(Functor.symbol);
+  });
+});
+
+describe('stable function', () => {
+  let stabilized = stable(() => {});
+  it('returns stabilized function when attempting to wrapped previously stabilized function', () => {
+    expect(stable(stabilized)).to.equal(stabilized);
   });
 });

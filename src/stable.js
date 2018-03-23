@@ -1,3 +1,5 @@
+const Stable = Symbol('Stable');
+
 export default function stable(fn) {
   switch (fn.length) {
   case 0:
@@ -8,15 +10,20 @@ export default function stable(fn) {
 }
 
 function thunk(fn) {
+  if (fn[Stable]) {
+    return fn;
+  }
   let evaluated = false;
   let result = undefined;
-  return function evaluate() {
+  function evaluate() {
     if (evaluated) {
       return result;
     } else {
-      result = fn();
+      result = fn.call(this);
       evaluated = true;
       return result;
     }
   };
+  evaluate[Stable] = true;
+  return evaluate;
 }
