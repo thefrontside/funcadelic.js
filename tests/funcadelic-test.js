@@ -1,5 +1,5 @@
 import { apply, map, append, foldr, foldl, filter, pure, reduce, Monoid, Functor, type } from '../src/funcadelic';
-import stable, { Stable } from '../src/stable';
+import stable from '../src/stable';
 
 import chai  from 'chai';
 import mocha from 'mocha';

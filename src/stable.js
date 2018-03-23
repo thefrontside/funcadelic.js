@@ -1,4 +1,4 @@
-export const Stable = Symbol('Stable');
+const Stable = Symbol('Stable');
 
 export default function stable(fn) {
   switch (fn.length) {
