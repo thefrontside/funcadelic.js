@@ -1,29 +1,38 @@
 import { Semigroup } from '../semigroup';
+import { foldl } from '../foldable';
 import propertiesOf from 'object.getownpropertydescriptors';
 import stable from '../stable';
 
-const { assign, getPrototypeOf, keys } = Object;
+const { assign, getPrototypeOf } = Object;
 
 Semigroup.instance(Object, {
   append(o1, o2) {
     let properties = assign({}, propertiesOf(o1), propertiesOf(o2));
-    return Object.create(getPrototypeOf(o1), cacheGetters(properties));
+    return Object.create(getPrototypeOf(o1), stableize(properties));
   }
 });
 
-function cacheGetters(descriptors) {
-  return keys(descriptors).reduce(function(memo, key) {
-    let descriptor = descriptors[key];
+/**
+ * Make all of the computed values in this set of property descriptors
+ * stable.
+ *
+ * Funcadelic works on immutable data, and as such the value of a
+ * property should not change in between acesseses. If any of the
+ * property descriptors have a `get` function, then that function
+ * stableized so that it returns the same value every time.
+ */
+function stableize(properties) {
+  return foldl((descriptors, { key, value: descriptor }) => {
     if (!descriptor.get) {
-      return assign({}, memo, {
+      return assign({}, descriptors, {
         [key]: descriptor
       });
     } else {
-      return assign(memo, {
+      return assign({}, descriptors, {
         [key]: assign({}, descriptor, {
           get: stable(descriptor.get)
-        }),
+        })
       });
     }
-  }, {});
+  }, {}, properties);
 }
