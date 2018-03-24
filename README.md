@@ -11,8 +11,7 @@ it to JavaScript. Sure, there are a lot of FP libraries out there, but
 this one is geared towards unlocking the magical powers of functional
 programming while always maintaining a tangible and accessible
 experience for JavaScript developers. Because if you're a JavaScript
-developer today, you're already using already using most of the
-structures in funcadelic already!
+developer today, you're already using most of the structures in funcadelic already!
 
 Quick example:
 
