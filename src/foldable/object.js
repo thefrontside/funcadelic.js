@@ -1,6 +1,5 @@
 import { Foldable } from '../foldable';
 
-const { keys } = Object;
 
 Foldable.instance(Object, {
   foldr(fn, initial, object) {
@@ -15,3 +14,7 @@ Foldable.instance(Object, {
     ), initial);
   }
 });
+
+function keys(object) {
+  return [].concat(Object.keys(object), Object.getOwnPropertySymbols(object));
+}

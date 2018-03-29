@@ -82,7 +82,7 @@ describe('Semigroup', function() {
     expect(obj[symbol]).to.equal(true);
     expect(Object.getOwnPropertySymbols(obj)).to.deep.equal([symbol]);
 
-    expect(Object.getOwnPropertySymbols(result)).to.equal([symbol]);
+    expect(Object.getOwnPropertySymbols(result)).to.deep.equal([symbol]);
     expect(result[symbol]).to.equal(true);
   });
 });
