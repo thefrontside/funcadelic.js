@@ -63,7 +63,6 @@ describe('Semigroup', function() {
 
     expect(result.sum).to.equal(result.sum);
   });
-
   it('stabilizes getters on initial object', () => {
     let result = append({
       get sum() {
@@ -72,6 +71,19 @@ describe('Semigroup', function() {
     }, { two: 2, three: 3 });
 
     expect(result.sum).to.equal(result.sum);
+  });
+  it('includes symbols', () => {
+    let symbol = Symbol();
+    let obj = {
+      [symbol]: true
+    };
+    let result = append(obj, {});
+
+    expect(obj[symbol]).to.equal(true);
+    expect(Object.getOwnPropertySymbols(obj)).to.deep.equal([symbol]);
+
+    expect(Object.getOwnPropertySymbols(result)).to.equal([symbol]);
+    expect(result[symbol]).to.equal(true);
   });
 });
 
