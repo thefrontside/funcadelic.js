@@ -3,7 +3,7 @@ import { foldl } from '../foldable';
 import propertiesOf from 'object.getownpropertydescriptors';
 import stable from '../stable';
 
-const { assign, getPrototypeOf } = Object;
+const { assign, getPrototypeOf, getOwnPropertySymbols, keys } = Object;
 
 Semigroup.instance(Object, {
   append(o1, o2) {
@@ -22,7 +22,8 @@ Semigroup.instance(Object, {
  * stableized so that it returns the same value every time.
  */
 function stableize(properties) {
-  return foldl((descriptors, { key, value: descriptor }) => {
+  return foldl((descriptors, key) => {
+    let descriptor = properties[key];
     if (!descriptor.get) {
       return assign({}, descriptors, {
         [key]: descriptor
@@ -34,5 +35,5 @@ function stableize(properties) {
         })
       });
     }
-  }, {}, properties);
+  }, {}, keys(properties).concat(getOwnPropertySymbols(properties)));
 }
