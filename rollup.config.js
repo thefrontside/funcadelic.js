@@ -1,6 +1,15 @@
+
+import babel from 'rollup-plugin-babel';
 import resolve from 'rollup-plugin-node-resolve'
 import commonjs from 'rollup-plugin-commonjs'
 import pkg from './package.json'
+
+const globals = {
+  'lodash.curry': '_.curry',
+  'object.getownpropertydescriptors': 'Object.getOwnPropertyDescriptors'
+};
+
+let external = Object.keys(globals);
 
 export default [
   // browser-friendly UMD build
@@ -9,17 +18,32 @@ export default [
     output: {
       name: 'funcadelic',
       file: pkg.browser,
+      globals,
       format: 'umd'
     },
-    plugins: [
+    external,
+    plugins: [            
+      babel({
+        runtimeHelpers: true,
+        babelrc: false,
+        comments: false,
+        presets: [
+          [
+            "env",
+            {
+              modules: false
+            }
+          ]
+        ],
+        plugins: ["external-helpers"]
+      }),
       resolve(), 
-      commonjs() 
+      commonjs()
     ]
   },
-
   {
     input: 'src/funcadelic.js',
-    external: id => /lodash/.test(id) || /object.getownpropertydescriptors/.test(id),
+    external,
     output: [
 			{ file: pkg.main, format: 'cjs' }, 
 			{ file: pkg.module, format: 'es' }
