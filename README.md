@@ -10,7 +10,7 @@ different data structures (typeclass oriented programming) and brings
 it to JavaScript. Sure, there are a lot of FP libraries out there, but
 this one is geared towards unlocking the magical powers of functional
 programming while always maintaining a tangible and accessible
-experience for JavaScript developers. Because if you're a JavaScript 
+experience for JavaScript developers. Because if you're a JavaScript
 developer today, you're already using most of the structures in funcadelic!
 
 Quick example:
@@ -61,6 +61,9 @@ These typeclasses are currently contained within funcadelic.
   + [`map(fn, functor)`](#mapfn-functor)
 * [`Applicative`](#applicative)
   + [`apply(Applicative, fn, list)`](#applyapplicative-fn-list)
+  + [`pure(Applicitave, value)`](#pureapplicative-value)
+* [`Monad`](#monad)
+  + [`flatMap(fn, monad)`](#flatmapfn-monad)
 * [`Foldable`](#foldable)
   + [`foldl(fn, initial, foldable)`](#foldlfn-initial-foldable)
   + [`foldr(fn, initial, foldable)`](#foldrfn-initial-foldable)
@@ -296,6 +299,116 @@ apply(Promise, greet, [say, to, isExcited]);
 This says: take these three promises, use the values that
 they contain as the three arguments to `greet`, and then return a
 promise containing the result. Nifty!
+
+#### pure(Applicative, value)
+
+> Take `value` and place it into the minimum possible context of applicative
+> `Applicative`
+
+
+Are you tired of hearing about Functors? Well too bad! Because we're going to
+talk about them some more.
+
+So anyway, what is a Functor really?  🤔
+
+One way to think about it is that it represents a _context_. It could
+be the context of being in a sequence like an array. Or it could be
+the context of something that will happen in the future like a
+`Promise`. Whatever the context, how do you get a value into it?
+
+Let's look at a couple of contexts that we know like `Array` and
+`Promise`. How would we get the value `"Hello My Friend-o"` into each
+of these contexts? Well, what does `"Hello My Friend-o"` look like as
+an Array. How about `["Hello My Friend-o"]`? That works. We did the
+smallest thing we could possibly to take the value and put it into the
+context of an array.
+
+What's the smallest amount of work that we could do and put that value
+into a `Promise`? The answer is.............
+
+``` javascript
+Promise.resolve("Hello My Friend-o");
+```
+
+And in fact, both of these techniques, though seemingly different
+really just the same thing: taking a value and putting into the
+smallest possible or "purest" context that you can. That's what pure
+is all about:
+
+``` javascript
+pure(Array, "Hello My Friend-o") //=> ["Hello My Friend-o"]
+pure(Promise, "Hello My Friend-o") //=> Promise {<resolved>: "Hello My Friend-o"}
+```
+
+By contrast, the Array
+`["Hello My Friend-o", "Hey what's this!!! How the heck did this get in here?"]`
+is an example of something that is _not_ the purest array context for
+`"Hello My Friend-o"`.
+
+### Monad
+
+Monads are a tad controversial, yes? I think that this might well be
+because we try to come at them without a full appreciation and
+understanding of Functors first, and it turns out that that's just
+silly! So if you don't feel completely comfortable with Functors, I
+recommend you go [read up on them](#Functor) first, then work with
+them a little bit and then come back here when you've got your head
+fully inside and around them. Because the simple fact is that Monad's
+just aren't going to make much sense unless you understand Functor
+first.
+
+So if you need to go back and learn Functor's first, go for it!
+Monad's will still be waiting for you right here when you get back. It
+might take 2 hours, two weeks, or two years.
+
+Ok.
+
+The basic `Functor` method `map` let's you transform values, but not
+the enclosing context. In many ways that's the power of
+mapping. You're freed from thinking of the context because it remains
+constant. If you map an Array of 10 elements the result will also have
+10 elements. If you map a Promise that resolves at 5:15pm and 3
+seconds, the result will also resolve at 5:15pm and 3 seconds.
+
+But sometimes that's not enough. Sometimes you want to change the
+structure of the Array, or change the timing of the Promise. To unlock
+this power, you need `Monad`.
+
+Unlike `map`, the `flatMap` method of the `Monad` type class
+let's you actually _modify_ the context. So you can do things like
+generate an Array of a different length than the original, or generate
+a Promise that resolves at a different time than the original.
+
+Whereas `map` takes a function that converts a value into another
+value, `flatMap` takes a function that converts a value into a new
+value __in a new context_. It then takes that new context and combines
+it in some way with the existing context. Of course what "combine"
+means is up to the specific Monad.
+
+#### flatMap(fn, monad)
+
+> Create a new Monad by applying the function `fn` to the content
+> of `monad`. `fn` is expected to return a new monadic context which is
+> then "flattened" into the original context.
+
+What does this look like? Well, here's a monad that you use all the
+time, but might not know it: Promise.
+
+Have you ever returned a new Promise from within a `Promise#then`?
+Well if you have, then you're already well versed in monadic
+operations because that's exactly the kind of thing you would do with
+a `flatMap`.
+
+``` javascript
+let user = $.get('/');
+
+flatMap(user => $.get(`/wingdings/`${user.wingdingId}`))
+  .then(wingding => console.log(wingding));
+```
+
+Notice how the flat mapping function takes the value contained within
+the Promise, but then returns a completely new promise. That's how
+`flatMap` allows you to actually change the context.
 
 ### Foldable
 
