@@ -29,9 +29,12 @@ function stableize(properties) {
         [key]: descriptor
       });
     } else {
+      let cached = stable(instance => descriptor.get.call(instance));
       return assign({}, descriptors, {
         [key]: assign({}, descriptor, {
-          get: stable(descriptor.get)
+          get() {
+            return cached(this);
+          }
         })
       });
     }

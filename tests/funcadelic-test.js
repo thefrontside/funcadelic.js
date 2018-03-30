@@ -60,7 +60,6 @@ describe('Semigroup', function() {
         return new Number(this.two + this.three);
       }
     });
-
     expect(result.sum).to.equal(result.sum);
   });
   it('stabilizes getters on initial object', () => {
@@ -84,6 +83,19 @@ describe('Semigroup', function() {
 
     expect(Object.getOwnPropertySymbols(result)).to.deep.equal([symbol]);
     expect(result[symbol]).to.equal(true);
+  });
+  it('caches getters per instance', () => {
+    let numbers = append({ data: [1, 2, 3] }, {
+      get upperCaseStrings() {
+        return this.data.map(n => `${n}`.toUpperCase());
+      }
+    });
+    expect(numbers.upperCaseStrings).to.deep.equal(['1', '2', '3']);
+    expect(numbers.upperCaseStrings).to.equal(numbers.upperCaseStrings);
+
+    let letters = append(numbers, { data: [ 'a', 'b', 'c']});
+    expect(letters.upperCaseStrings).to.deep.equal(['A', 'B', 'C']);
+    expect(letters.upperCaseStrings).to.equal(letters.upperCaseStrings);
   });
 });
 
@@ -159,8 +171,25 @@ describe('A Typeclass', function () {
 });
 
 describe('stable function', () => {
-  let stabilized = stable(() => {});
-  it('returns stabilized function when attempting to wrapped previously stabilized function', () => {
-    expect(stable(stabilized)).to.equal(stabilized);
+  describe('thunk', () => {
+    it('returns stabilized function when attempting to stabilize a thunk', () => {
+      let stabilized = stable(() => {});
+      expect(stable(stabilized)).to.equal(stabilized);
+    });
+  });
+  describe('stableOne', () => {
+    it('caches result when passed an object', () => {
+      let one = {};
+      let two = {};
+      let dateMaker = instance => new Date();
+      let stableDateMaker = stable(dateMaker);
+      expect(stableDateMaker(one)).to.equal(stableDateMaker(one)); 
+      expect(stableDateMaker(two)).to.equal(stableDateMaker(two));
+      expect(stableDateMaker(one)).not.to.equal(stableDateMaker(two));
+    });
+    it('returns stabilized function when attempting to stabilize a function with one argument', () => {
+      let stabilized = stable(arg => arg);
+      expect(stable(stabilized)).to.equal(stabilized);
+    });
   });
 });
