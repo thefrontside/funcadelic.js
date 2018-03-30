@@ -29,18 +29,14 @@ function stableize(properties) {
         [key]: descriptor
       });
     } else {
+      let cached = stable(instance => descriptor.get.call(instance));
       return assign({}, descriptors, {
         [key]: assign({}, descriptor, {
-          get: stabilizeGetter(descriptor.get)
+          get() {
+            return cached(this);
+          }
         })
       });
     }
   }, {}, keys(properties).concat(getOwnPropertySymbols(properties)));
-}
-
-function stabilizeGetter(fn) {
-  let cached = stable(instance => fn.call(instance));
-  return function bound() {
-    return cached(this);
-  }
 }

@@ -36,13 +36,10 @@ export function stableOne(fn) {
   }
   let cache = new WeakMap();
   function stabilizedOne(argument) {
-    if (cache.has(argument)) {
-      return cache.get(argument);
-    } else {
-      let result = fn(argument);
-      cache.set(argument, result);
-      return result;
-    };
+    if (!cache.has(argument)) {
+      cache.set(argument, fn(argument));
+    }
+    return cache.get(argument);
   };
 
   stabilizedOne[Stable] = true;
