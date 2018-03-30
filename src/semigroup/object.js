@@ -31,9 +31,16 @@ function stableize(properties) {
     } else {
       return assign({}, descriptors, {
         [key]: assign({}, descriptor, {
-          get: stable(descriptor.get)
+          get: stabilizeGetter(descriptor.get)
         })
       });
     }
   }, {}, keys(properties).concat(getOwnPropertySymbols(properties)));
+}
+
+function stabilizeGetter(fn) {
+  let cached = stable(instance => fn.call(instance));
+  return function bound() {
+    return cached(this);
+  }
 }
