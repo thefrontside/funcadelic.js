@@ -16,6 +16,10 @@ import './functor/promise';
 export { Applicative, pure, apply } from './applicative';
 import './applicative/promise';
 
+export { Monad, flatMap } from './monad';
+import './monad/array';
+import './monad/promise';
+
 export { Foldable, foldr, foldl } from './foldable'
 import './foldable/array';
 import './foldable/object';

@@ -1,4 +1,4 @@
-import { apply, map, append, foldr, foldl, filter, pure, reduce, Monoid, Functor, type } from '../src/funcadelic';
+import { apply, map, append, foldr, foldl, filter, pure, reduce, flatMap, Monoid, Functor, type } from '../src/funcadelic';
 import stable from '../src/stable';
 
 import chai  from 'chai';
@@ -150,6 +150,17 @@ describe('Applicative', function() {
     });
   });
 });
+
+describe('Monad', function() {
+  it('flatMaps arrays', function() {
+    expect(flatMap(x => [x, -x], [1,2,3])).to.deep.equal([1,-1, 2, -2, 3, -3]);
+  });
+  it('flatMaps promises', function() {
+    return flatMap(str => Promise.resolve(`${str} World!`), pure(Promise, "Hello"))
+      .then(result => expect(result).to.equal("Hello World!"));
+  });
+});
+
 
 describe('A Typeclass', function () {
   it('has an associated symbol', function() {
