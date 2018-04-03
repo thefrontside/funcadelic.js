@@ -53,21 +53,14 @@ easily understood tool.
 
 These typeclasses are currently contained within funcadelic.
 
-* [`Semigroup`](#semigroup)
-  + [`append(a, b)`](#appenda-b)
-* [`Monoid`](#monoid)
-  + [`reduce(Monoid, list)`](#reducemonoid-list)
-* [`Functor`](#functor)
-  + [`map(fn, functor)`](#mapfn-functor)
-* [`Applicative`](#applicative)
-  + [`apply(Applicative, fn, list)`](#applyapplicative-fn-list)
-  + [`pure(Applicitave, value)`](#pureapplicative-value)
-* [`Monad`](#monad)
-  + [`flatMap(fn, monad)`](#flatmapfn-monad)
-* [`Foldable`](#foldable)
-  + [`foldl(fn, initial, foldable)`](#foldlfn-initial-foldable)
-  + [`foldr(fn, initial, foldable)`](#foldrfn-initial-foldable)
-
+typeclass | instance operations
+--------- | -------------------
+[`Semigroup`](#semigroup) | [`append(a, b)`](#appenda-b)
+[`Monoid`](#monoid) | [`reduce(Monoid, list)`](#reducemonoid-list)
+[`Functor`](#functor) | [`map(fn, functor)`](#mapfn-functor)
+[`Applicative`](#applicative) | [`apply(Applicative, fn, list)`](#applyapplicative-fn-list), [`pure(Applicitave, value)`](#pureapplicative-value)
+[`Monad`](#monad) | [`flatMap(fn, monad)`](#flatmapfn-monad)
+[`Foldable`](#foldable) | [`foldl(fn, initial, foldable)`](#foldlfn-initial-foldable), [`foldr(fn, initial, foldable)`](#foldrfn-initial-foldable)
 
 ### Semigroup
 
