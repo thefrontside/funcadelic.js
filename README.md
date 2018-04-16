@@ -96,6 +96,14 @@ append({name: 'Charles'}, {occupation: 'Developer'}) //=> {name: 'Charles', occu
 When you smush two members of a semigroup together, you always get the
 same type back. In that example above: `Object + Object => Object`
 
+And when you smush multiple members of a semigroup together, it doesn't 
+matter which ones you smush together first, you get the same answer either way:
+
+```javascript
+append([1,2], append([3,4], [5,6])) //=> [1,2,3,4,5,6]
+append(append([1,2], [3,4]), [5,6]) //=> [1,2,3,4,5,6]
+```
+
 ### Monoid
 
 Monoids take the concept of [`Semigroup`](#semigroup) and extend it just _teeeeeny
