@@ -1,10 +1,9 @@
 const Benchmark = require("benchmark");
 
 const { stable, foldr, append } = require("../dist/funcadelic.cjs");
-const { getPrototypeOf, assign } = Object;
+const { getPrototypeOf, assign, keys } = Object;
 
 function forMap(fn, object) {
-
   let descriptors = {};
   for (let key in object) {
     descriptors[key] = {
@@ -12,6 +11,19 @@ function forMap(fn, object) {
       get: stable(() => fn(object[key], key))
     }
   }
+
+  return Object.create(getPrototypeOf(object), descriptors);
+}
+
+function foldrMutateMap(fn, object) {
+  
+  let descriptors = keys(object).reduce((acc, key) => {
+    acc[key] = {
+      enumerable: true,
+      get: stable(() => fn(object[key], key))
+    }
+    return acc;
+  }, {});
 
   return Object.create(getPrototypeOf(object), descriptors);
 }
@@ -45,6 +57,11 @@ function foldrAssignMap(fn, object) {
 let data = { a: 'a', b: 'b', c: 'c', d: 'd', e: 'e', f: 'f', g: 'g', h: 'h', k: 'k' };
 
 module.exports = new Benchmark.Suite()
+  .add("map with foldr and mutate", () => {
+    for (let i = 0; i < 1000; i++) {
+      foldrMutateMap(v => v, data);
+    }
+  })
   .add("map with foldr and append", () => {
     for (let i = 0; i < 1000; i++) {
       foldrAppendMap(v => v, data);
