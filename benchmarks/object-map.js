@@ -15,8 +15,8 @@ function forMap(fn, object) {
   return Object.create(getPrototypeOf(object), descriptors);
 }
 
-function foldrMutateMap(fn, object) {
-  
+function keysReduceMutateMap(fn, object) {
+
   let descriptors = keys(object).reduce((acc, key) => {
     acc[key] = {
       enumerable: true,
@@ -57,9 +57,9 @@ function foldrAssignMap(fn, object) {
 let data = { a: 'a', b: 'b', c: 'c', d: 'd', e: 'e', f: 'f', g: 'g', h: 'h', k: 'k' };
 
 module.exports = new Benchmark.Suite()
-  .add("map with foldr and mutate", () => {
+  .add("map with Object.keys(object).reduce and mutate descriptors", () => {
     for (let i = 0; i < 1000; i++) {
-      foldrMutateMap(v => v, data);
+      keysReduceMutateMap(v => v, data);
     }
   })
   .add("map with foldr and append", () => {

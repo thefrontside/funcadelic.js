@@ -6,12 +6,13 @@ const { getPrototypeOf, keys } = Object;
 Functor.instance(Object, {
   map(fn, object) {
 
-    let descriptors = keys(object).reduce((acc, key) => {
-      acc[key] = {
+    let descriptors = keys(object).reduce((descriptors, key) => {
+      descriptors[key] = {
+        configurable: true,
         enumerable: true,
         get: stable(() => fn(object[key], key))
       }
-      return acc;
+      return descriptors;
     }, {});
 
     return Object.create(getPrototypeOf(object), descriptors);
