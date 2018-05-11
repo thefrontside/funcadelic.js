@@ -2,8 +2,9 @@ import { Semigroup } from '../semigroup';
 import { foldl } from '../foldable';
 import propertiesOf from 'object.getownpropertydescriptors';
 import stable from '../stable';
+import assign from 'extend-shallow';
 
-const { assign, getPrototypeOf, getOwnPropertySymbols, keys } = Object;
+const { getPrototypeOf, getOwnPropertySymbols, keys } = Object;
 
 Semigroup.instance(Object, {
   append(o1, o2) {
