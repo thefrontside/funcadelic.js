@@ -24,8 +24,8 @@
     "dist"
   ],
   "dependencies": {
-    "lodash.curry": "4.1.1",
-    "object.getownpropertydescriptors": "2.0.3"
+    "invariant": "2.2.4",
+    "lodash.curry": "4.1.1"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0-beta.44",
@@ -38,6 +38,7 @@
     "eslint": "4.19.1",
     "eslint-plugin-prefer-let": "1.0.1",
     "jest": "22.4.3",
+    "object.getownpropertydescriptors": "2.0.3",
     "ora": "2.0.0",
     "regenerator-runtime": "0.11.1",
     "rollup": "0.57.1",
@@ -50,6 +51,7 @@
       "js",
       "json"
     ],
+    "setupFiles": ["./scripts/shims.js"],
     "globalSetup": "./scripts/build.js",
     "modulePaths": [
       "<rootDir>/src",
