@@ -1,6 +1,6 @@
 {
   "name": "funcadelic",
-  "version": "0.4.0",
+  "version": "0.4.2",
   "description": "Functional Fundamentals are Fun!",
   "main": "dist/funcadelic.cjs.js",
   "module": "dist/funcadelic.esm.js",
@@ -51,7 +51,9 @@
       "js",
       "json"
     ],
-    "setupFiles": ["./scripts/shims.js"],
+    "setupFiles": [
+      "./scripts/shims.js"
+    ],
     "globalSetup": "./scripts/build.js",
     "modulePaths": [
       "<rootDir>/src",
