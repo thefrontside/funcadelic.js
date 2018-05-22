@@ -3,7 +3,6 @@ const filesize = require("rollup-plugin-filesize");
 const pkg = require("./package.json");
 
 const globals = {
-  "lodash.curry": "_.curry",
   "invariant": "invariant"
 };
 
