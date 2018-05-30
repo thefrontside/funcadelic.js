@@ -4,6 +4,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [0.5.0] - 2018-05-30
+
+- Attach symbols to global Symbol object https://github.com/cowboyd/funcadelic.js/pull/48
+
+## [0.4.3] - 2018-05-22
+
+- Replace lodash.curry with something smaller https://github.com/cowboyd/funcadelic.js/pull/44
+
+## [0.4.2] - 2018-05-17
+
+- Remove dependency on object.getownpropertydescriptors https://github.com/cowboyd/funcadelic.js/pull/43
+- Using local assign in Object Semigroup https://github.com/cowboyd/funcadelic.js/pull/42
+
 ## [0.3.2] - 2018-02-03
 
 ### Changed
