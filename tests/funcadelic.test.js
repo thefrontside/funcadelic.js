@@ -11,9 +11,22 @@ describe('typeclasses', function() {
   it('exports type function', function() {
     expect(type).toBeInstanceOf(Function);
   });
+  describe('global registration', () => {
+    class MyClass {}
+    let Typeclass;
+    beforeEach(() => {
+      Typeclass = type(MyClass);
+    });
+    it('attached typeclass to Symbol', () => {
+      expect(Symbol['@@funcadelic-0/MyClass']).toBe(Typeclass.symbol);
+    });
+  });
 });
 
 describe('Functor', function() {
+  it('attached typeclass to global Symbol', () => {
+    expect(typeof Symbol['@@funcadelic-0/Functor']).toBe('symbol');
+  });
   it('maps objects', function() {
     expect(map((i) => i * 2, {one: 1, two: 2})).toEqual({one: 2, two: 4});
   });

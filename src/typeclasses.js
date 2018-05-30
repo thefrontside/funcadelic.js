@@ -5,6 +5,8 @@ const { keys, getOwnPropertyDescriptors } = Object;
 invariant(getOwnPropertyDescriptors, `funcadelic.js requires Object.getOwnPropertyDescriptors. See https://github.com/cowboyd/funcadelic.js#compatibility`)
 invariant("name" in Function.prototype && "name" in (function x() {}), `funcadelic.js requires Function.name. See https://github.com/cowboyd/funcadelic.js#compatibility`);
 
+const VERSION = 0;
+
 export function type(Class) {
 
   let name = Class.name;
@@ -13,7 +15,8 @@ export function type(Class) {
     throw new Error('invalid typeclass name: ' + name);
   }
 
-  let symbol = Symbol(name);
+  let symbolName = `@@funcadelic-${VERSION}/${name}`;
+  let symbol = Symbol[symbolName] ? Symbol[symbolName] : Symbol[symbolName] = Symbol(symbolName);
 
   Class.for = function _for(value) {
     let i = value[symbol];
