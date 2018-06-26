@@ -7,6 +7,12 @@ function promise(result) {
   return Promise.resolve(result);
 }
 
+function* generate(...args) {
+  for (let arg of args) {
+    yield arg;
+  }
+}
+
 describe('typeclasses', function() {
   it('exports type function', function() {
     expect(type).toBeInstanceOf(Function);
@@ -45,6 +51,14 @@ describe('Functor', function() {
   it('passes the key to the mapping function for objects', function() {
     expect(map((_, name) => `hello ${name}`, {one: 1, two: 2})).toEqual({one: 'hello one', two: 'hello two'});
   });
+  it('maps generator functions', function() {
+    let mapped = map(x => x *2, generate);
+    let iterator = mapped(1,2,3);
+    expect(iterator.next().value).toEqual(2);
+    expect(iterator.next().value).toEqual(4);
+    expect(iterator.next().value).toEqual(6);
+    expect(iterator.next().done).toEqual(true);
+  });
 });
 
 describe('Semigroup', function() {
@@ -61,6 +75,18 @@ describe('Semigroup', function() {
   it('appends arrays', function() {
     expect(append([1,2,3], [4,4,4])).toEqual([1,2,3,4,4,4]);
   });
+  it('appends generators', function() {
+    let doubles = map(x => x * 2, generate);
+    let triples = map(x => x * 3, generate);
+    let doublesThenTriples = append(doubles, triples);
+    let iterator = doublesThenTriples(1,2,3);
+    expect(iterator.next().value).toEqual(2);
+    expect(iterator.next().value).toEqual(4);
+    expect(iterator.next().value).toEqual(6);
+    expect(iterator.next().value).toEqual(3);
+    expect(iterator.next().value).toEqual(6);
+    expect(iterator.next().value).toEqual(9);
+  })
   it('maintains prototype', function() {
     class OneAndTwo {
       constructor() {

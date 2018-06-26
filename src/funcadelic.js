@@ -3,6 +3,7 @@ export { type } from "./typeclasses";
 export { Semigroup, append } from './semigroup';
 import './semigroup/object';
 import './semigroup/array';
+import './semigroup/generator';
 
 export { Monoid, reduce } from './monoid';
 import './monoid/object';
@@ -12,6 +13,7 @@ export { Functor, map } from './functor';
 import './functor/object';
 import './functor/array';
 import './functor/promise';
+import './functor/generator';
 
 export { Applicative, pure, apply } from './applicative';
 import './applicative/promise';
