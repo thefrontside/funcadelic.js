@@ -96,7 +96,7 @@ append({name: 'Charles'}, {occupation: 'Developer'}) //=> {name: 'Charles', occu
 When you smush two members of a semigroup together, you always get the
 same type back. In that example above: `Object + Object => Object`
 
-And when you smush multiple members of a semigroup together, it doesn't 
+And when you smush multiple members of a semigroup together, it doesn't
 matter which ones you smush together first, you get the same answer either way:
 
 ```javascript
@@ -497,14 +497,55 @@ you find yourself coming up against problems and wondering which to
 use and this documentation doesn't help. Shoot me a line and we can
 talk it over about how to improve it. When in doubt, `foldl`.
 
+## Chaining API
+
+Funcadelic is great for composition, but because of JavaScripts syntax
+composing a sequence of operations can be awkward. For example,
+suppose you have some variable `start` that you want to map over,
+then filter, then append to, and then map again. You'd have to write
+something like:
+
+```js
+let result = map(f2, append(filter(predicate, map(f1, start))))
+```
+
+Picking apart those expressions and divining the intent is a difficult
+task even for the most experienced set of eyes.
+
+With the chain api, you can rewrite the above as:
+
+```js
+import { chain as $ } from 'funcadelic';
+
+$(start)
+  .map(f1)
+  .filter(predicate)
+  .append(something)
+  .map(f2)
+  .valueOf();
+```
+
+Which very clearly describes the sequence of operations.
+
+Each method invocation takes the current value of the chain, applies
+the transformation using the current value as the last argument, and
+then returns a new chain contain the result of that operation.
+
+Notice how we had to call `valueOf()` as the very last step in our
+chain? This takes the current value of the chain and returns it.
+
+> Pro tip: Chaining is lazy, so not only do we need to call
+> `valueOf()` to get the final result from the chain, but also nothing
+> actually happens at all until we do!
+
 ## Compatibility
 
-Funcadelic uses `Object.getOwnPropertyDescriptors` which is not supported by all environments, namely <IE11 and <Node 6. 
-You may consider using a [polyfill](https://www.npmjs.com/package/object.getownpropertydescriptors) if you require support 
-for these environments. 
+Funcadelic uses `Object.getOwnPropertyDescriptors` which is not supported by all environments, namely <IE11 and <Node 6.
+You may consider using a [polyfill](https://www.npmjs.com/package/object.getownpropertydescriptors) if you require support
+for these environments.
 
-Funcadelic uses `Function.name` to determine the name of the constructor when creating typeclasses. 
-Unfortunately, IE11 does not support retrieving the name of a function. You may use [Function.name polyfill](https://github.com/JamesMGreene/Function.name) to make this feature available in IE11. 
+Funcadelic uses `Function.name` to determine the name of the constructor when creating typeclasses.
+Unfortunately, IE11 does not support retrieving the name of a function. You may use [Function.name polyfill](https://github.com/JamesMGreene/Function.name) to make this feature available in IE11.
 
 ## Development
 

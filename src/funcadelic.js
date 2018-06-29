@@ -29,3 +29,5 @@ import './filterable/object';
 import './filterable/array';
 
 export { default as stable } from './stable';
+
+export { default as chain } from './chain';
