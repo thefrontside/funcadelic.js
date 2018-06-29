@@ -1,5 +1,3 @@
-import 'jest';
-
 import { apply, map, append, foldr, foldl, filter, pure, reduce, flatMap, Monoid, Functor, type, stable } from 'funcadelic';
 import {curry} from '../src/applicative';
 
@@ -31,7 +29,7 @@ describe('Functor', function() {
     expect(map((i) => i * 2, {one: 1, two: 2})).toEqual({one: 2, two: 4});
   });
   it('maps objects, and maintains stability over its values.', function() {
-    let objects =  map(i => ({}), {one: 1, two: 2});
+    let objects =  map(() => ({}), {one: 1, two: 2});
     expect(objects.one).toBe(objects.one);
   });
   it('maps arrays', function() {
@@ -208,9 +206,10 @@ describe('stable function', () => {
     it('caches result when passed an object', () => {
       let one = {};
       let two = {};
-      let dateMaker = instance => new Date();
+
+      let dateMaker = instance => new Date(); //eslint-disable-line no-unused-vars
       let stableDateMaker = stable(dateMaker);
-      expect(stableDateMaker(one)).toBe(stableDateMaker(one)); 
+      expect(stableDateMaker(one)).toBe(stableDateMaker(one));
       expect(stableDateMaker(two)).toBe(stableDateMaker(two));
       expect(stableDateMaker(one)).not.toBe(stableDateMaker(two));
     });
@@ -222,9 +221,10 @@ describe('stable function', () => {
 });
 
 describe('curry', () => {
+  //eslint-disable-next-line no-unused-vars
   let curried = curry(function (x, y) { return [].slice.call(arguments)});
   let partial = curried(1);
-  
+
   it('returns curried function when passing one argument', () => {
     expect(partial).toBeInstanceOf(Function);
   });
