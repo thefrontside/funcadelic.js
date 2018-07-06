@@ -352,7 +352,7 @@ Monads are a tad controversial, yes? I think that this might well be
 because we try to come at them without a full appreciation and
 understanding of Functors first, and it turns out that that's just
 silly! So if you don't feel completely comfortable with Functors, I
-recommend you go [read up on them](#Functor) first, then work with
+recommend you go [read up on them](#functor) first, then work with
 them a little bit and then come back here when you've got your head
 fully inside and around them. Because the simple fact is that Monad's
 just aren't going to make much sense unless you understand Functor
