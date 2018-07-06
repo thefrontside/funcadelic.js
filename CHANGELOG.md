@@ -4,7 +4,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [0.5.2] - 2018-07-02 - [v0.5.0...v0.5.1](https://github.com/cowboyd/funcadelic.js/compare/v0.5.1...v0.5.2)
+## [0.5.3] - 2018-07-06 [v0.5.2...v0.5.3](https://github.com/cowboyd/funcadelic.js/compare/v0.5.2...v0.5.3)
+
+### Changed
+
+- Add unique identifier to typeclass symbol names https://github.com/cowboyd/funcadelic.js/pull/56
+
+## [0.5.2] - 2018-07-02 - [v0.5.1...v0.5.2](https://github.com/cowboyd/funcadelic.js/compare/v0.5.1...v0.5.2)
 
 ### Added
 
