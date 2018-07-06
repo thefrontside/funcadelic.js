@@ -7,9 +7,16 @@ invariant("name" in Function.prototype && "name" in (function x() {}), `funcadel
 
 const VERSION = 0;
 
+// A function that exists to check if the compiler is crushing
+// function names. If it is we need to use `uniqueTag` to make sure
+// there's no collisions when looking up `symbolNames`
+function isCrushed() {}
+let hasBeenMangled = typeof isCrushed.name === 'string' && isCrushed.name !== 'isCrushed';
+let uniqueTag = 0;
+
 export function type(Class) {
 
-  let name = Class.name;
+  let name = hasBeenMangled ? uniqueTag++ : Class.name;
 
   if (!name) {
     throw new Error('invalid typeclass name: ' + name);
