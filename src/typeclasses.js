@@ -16,7 +16,7 @@ let uniqueTag = 0;
 
 export function type(Class) {
 
-  let name = hasBeenMangled ? uniqueTag++ : Class.name;
+  let name = hasBeenMangled ? `${Class.name}/${uniqueTag++}` : Class.name;
 
   if (!name) {
     throw new Error('invalid typeclass name: ' + name);
