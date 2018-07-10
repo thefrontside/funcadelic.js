@@ -31,6 +31,7 @@ export function type(Class) {
     constructor.prototype[symbol] = methods;
   };
 
+  Class.symbolName = symbolName;
   Class.symbol = symbol;
 
   let properties = getOwnPropertyDescriptors(Class.prototype);

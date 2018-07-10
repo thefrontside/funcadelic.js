@@ -16,14 +16,14 @@ describe('typeclasses', function() {
       Typeclass = type(MyClass);
     });
     it('attached typeclass to Symbol', () => {
-      expect(Symbol['@@funcadelic-0/MyClass']).toBe(Typeclass.symbol);
+      expect(Symbol[Typeclass.symbolName]).toBe(Typeclass.symbol);
     });
   });
 });
 
 describe('Functor', function() {
   it('attached typeclass to global Symbol', () => {
-    expect(typeof Symbol['@@funcadelic-0/Functor']).toBe('symbol');
+    expect(typeof Symbol[Functor.symbolName]).toBe('symbol');
   });
   it('maps objects', function() {
     expect(map((i) => i * 2, {one: 1, two: 2})).toEqual({one: 2, two: 4});
