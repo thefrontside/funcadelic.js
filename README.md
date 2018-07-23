@@ -206,7 +206,7 @@ structure of the container itself.
 
 #### map(fn, functor)
 
-> Create a new Functor by appplying the function `fn` to the content
+> Create a new Functor by applying the function `fn` to the content
 > of `functor`. The structure of the output Functor exactly matches
 > that of the input.
 
