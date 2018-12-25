@@ -403,7 +403,7 @@ a `flatMap`.
 ``` javascript
 let user = $.get('/');
 
-flatMap(user => $.get(`/wingdings/`${user.wingdingId}`))
+flatMap(user => $.get(`/wingdings/${user.wingdingId}`))
   .then(wingding => console.log(wingding));
 ```
 
