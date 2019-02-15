@@ -18,6 +18,17 @@ describe('typeclasses', function() {
     it('attached typeclass to Symbol', () => {
       expect(Symbol[Typeclass.symbolName]).toBe(Typeclass.symbol);
     });
+    describe('instance registration', () => {
+      class MyOtherClass {}
+      beforeEach(() => {
+        Typeclass.instance(MyOtherClass, {});
+      });
+      it('makes typeclass instance on the prototype non-enumerable', () => {
+        expect(Object.getOwnPropertyDescriptor(MyOtherClass.prototype, Typeclass.symbol)).toMatchObject({
+          enumerable: false
+        })
+      });
+    });
   });
 });
 

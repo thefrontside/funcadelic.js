@@ -1,6 +1,6 @@
 import invariant from 'invariant';
 
-const { keys, getOwnPropertyDescriptors } = Object;
+const { keys, getOwnPropertyDescriptors, defineProperty } = Object;
 
 invariant(getOwnPropertyDescriptors, `funcadelic.js requires Object.getOwnPropertyDescriptors. See https://github.com/cowboyd/funcadelic.js#compatibility`)
 invariant("name" in Function.prototype && "name" in (function x() {}), `funcadelic.js requires Function.name. See https://github.com/cowboyd/funcadelic.js#compatibility`);
@@ -28,7 +28,12 @@ export function type(Class) {
   };
 
   Class.instance = function(constructor, methods) {
-    constructor.prototype[symbol] = methods;
+    defineProperty(constructor.prototype, symbol, {
+      value: methods,
+      configurable: true,
+      // make the prototype non-enumerable to prevent it from showing in Safari debugger
+      enumerable: false
+    });
   };
 
   Class.symbolName = symbolName;
