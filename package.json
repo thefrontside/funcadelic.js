@@ -24,13 +24,14 @@
     "dist"
   ],
   "dependencies": {
-    "invariant": "2.2.4"
+    "tiny-invariant": "^1.0.4"
   },
   "devDependencies": {
     "@babel/core": "7.2.0",
     "@babel/preset-env": "^7.2.0",
     "babel-core": "^7.0.0-bridge.0",
     "babel-jest": "23.6.0",
+    "babel-plugin-dev-expression": "^0.2.1",
     "benchmark": "^2.1.4",
     "cli-table2": "^0.2.0",
     "colors": "^1.2.1",
