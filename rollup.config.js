@@ -36,9 +36,6 @@ module.exports = [
         ],
         plugins: [ 'dev-expression' ]
       }),
-      replace({
-        "process.env.NODE_ENV": JSON.stringify('production')
-      }),
       filesizePlugin
     ]
   },
@@ -86,9 +83,6 @@ module.exports = [
           ]
         ],
         plugins: [ 'dev-expression' ]
-      }),
-      replace({
-        "process.env.NODE_ENV": JSON.stringify('production')
       }),
       filesizePlugin
     ]
