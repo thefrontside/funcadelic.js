@@ -5,7 +5,7 @@ const resolve = require("rollup-plugin-node-resolve");
 const commonjs = require('rollup-plugin-commonjs');
 const replace = require('rollup-plugin-replace');
 
-let external = ["invariant"];
+let external = ["tiny-invariant"];
 
 let filesizePlugin = filesize();
 
@@ -18,9 +18,6 @@ module.exports = [
       format: "umd"
     },
     plugins: [
-      replace({
-        "process.env.NODE_ENV": JSON.stringify('production')
-      }),
       resolve(),
       commonjs(),
       babel({
@@ -36,7 +33,8 @@ module.exports = [
               modules: false
             }
           ]
-        ]
+        ],
+        plugins: [ 'dev-expression' ]
       }),
       filesizePlugin
     ]
@@ -83,7 +81,8 @@ module.exports = [
               modules: false
             }
           ]
-        ]
+        ],
+        plugins: [ 'dev-expression' ]
       }),
       filesizePlugin
     ]

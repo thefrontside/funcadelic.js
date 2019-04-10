@@ -1,4 +1,4 @@
-import invariant from 'invariant';
+import invariant from 'tiny-invariant';
 
 const { keys, getOwnPropertyDescriptors, defineProperty } = Object;
 
